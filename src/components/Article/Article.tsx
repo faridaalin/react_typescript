@@ -9,7 +9,6 @@ export function Article(props: InewsItemProps) {
         <span>{author}</span>
       </div>
       <p>{description}</p>
-      hello
     </div>
   )
 }

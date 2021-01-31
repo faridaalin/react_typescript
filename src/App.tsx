@@ -3,17 +3,6 @@ import './App.css'
 import { URL } from './configs'
 import { Article } from './components/Article/Article'
 
-interface InewsItemProps {
-  title: string
-  url: string
-  urlToImage: string
-  author: string | null
-  content: string
-  description: string
-  publishedAt: string
-  source: object
-}
-
 function App() {
   const [result, setResult] = useState<Array<InewsItemProps>>([])
   useEffect(() => {
