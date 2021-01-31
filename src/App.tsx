@@ -1,26 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from 'react'
+import './App.css'
+import { URL } from './configs'
+import { Article } from './components/Article/Article'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+interface InewsItemProps {
+  title: string
+  url: string
+  urlToImage: string
+  author: string | null
+  content: string
+  description: string
+  publishedAt: string
+  source: object
 }
 
-export default App;
+function App() {
+  const [result, setResult] = useState<Array<InewsItemProps>>([])
+  useEffect(() => {
+    fetch(URL)
+      .then((response) => response.json())
+      .then((response) => {
+        setResult(response.articles)
+      })
+  }, [result])
+
+  return (
+    <>
+      {result ? (
+        <div className='App'>
+          {result.map((article: InewsItemProps, index: number) => {
+            return <Article key={index} {...article} />
+          })}
+        </div>
+      ) : (
+        <div>We dont have news..</div>
+      )}
+    </>
+  )
+}
+
+export default App
